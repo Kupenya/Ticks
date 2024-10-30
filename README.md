@@ -239,21 +239,24 @@ This is a Node.js server that provides a RESTful API for an event ticket booking
    ```bash
    git clone <your-repository-url>
    cd <your-project-directory>
-2. Set up your database configuration in the .env file:
+2. Install packages:
+    ```bash
+       npm install
+3. Set up your database configuration in the .env file:
    ```bash
    DB_HOST=localhost
    DB_USER=root
    DB_PASSWORD=your_password
    DB_NAME=your_database_name
    JWT_SECRET=your_jwt_secret
-3. Run migrations to create necessary tables:
+4. Run migrations to create necessary tables:
 
    ```bash
    npm run migrate
-4. Seed the database with initial data:
+5. Seed the database with initial data:
    ```bash
    npm run seed
-5. Start the server:
+6. Start the server:
     ```bash
     npm run dev
     
