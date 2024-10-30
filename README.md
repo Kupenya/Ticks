@@ -258,12 +258,37 @@ This is a Node.js server that provides a RESTful API for an event ticket booking
    npm run seed
 6. Start the server:
     ```bash
-    npm run dev
-    
+       npm run dev
 ### Testing
-  ```bash
-    npm run test
+    ```bash
+       npm run test
 
+# Design Choices for Ticks: Event Ticket Booking System
+
+## Architecture & Structure
+Ticks is built on a RESTful API architecture using Node.js and TypeScript, with an MVC (Model-View-Controller) structure. This setup helps keep things organized by separating different parts of the application, which makes managing, testing, and scaling easier. To manage database interactions, I chose Sequelize ORM with MySQL. This combo offers both flexibility and efficiency in handling data relationships and running queries.
+
+## Authentication & Authorization
+For secure access across the app, I used JWT for user authentication, which supports a stateless access model. The API also enforces role-based access so that actions like creating or deleting events are limited to users with admin privileges. This approach balances user experience with robust data security and access control.
+
+## Concurrency & Booking Management
+One of the main challenges with Ticks is handling ticket availability for popular events. To prevent booking conflicts, I use database constraints and locking mechanisms, making sure that race conditions don’t interfere with ticket availability. For sold-out events, a waitlisting system keeps things organized. Additionally, I use Sequelize transactions to keep booking operations atomic and consistent—meaning any issue in the booking process triggers a rollback to avoid overbooking. This setup supports reliable ticket reservations and a smoother booking experience.
+
+## Technology Choices
+- **Node.js**: Handles non-blocking, asynchronous requests, ideal for a high-traffic application like Ticks.
+- **TypeScript**: Brings in type safety, helping reduce errors and making the code easier to maintain.
+- **Sequelize ORM**: Simplifies MySQL database management, allowing for complex queries, migrations, and transactional control.
+- **MySQL**: A robust choice for handling relational data such as tickets, users, and events, ensuring strong data integrity.
+
+## Security & Environment Management
+For data security, I store sensitive info like `JWT_SECRET` in environment variables, and access to critical endpoints is restricted by user roles. Using `.gitignore` to exclude sensitive files like `node_modules` and `.env` from version control adds an extra layer of protection, preventing unintended exposure.
+
+## User Experience & Testing
+To ensure everything runs smoothly, I use Mocha for unit tests on core functions, particularly booking and cancellation processes. Testing helps maintain reliability, quickly identifies issues, and ensures that users have a positive, hassle-free experience.
+
+This approach combines robust technology choices with a thoughtful design structure, prioritizing user experience, scalability, and reliability in managing event tickets.
+
+ 
 
 
    
